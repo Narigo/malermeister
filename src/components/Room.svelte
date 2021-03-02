@@ -1,7 +1,17 @@
 <script lang="ts">
   export let name: string;
 
-  let stage: string = "start";
+  const stages = [
+    "start",
+    "draw",
+    "guess",
+    "select",
+    "rate",
+    "scores",
+  ] as const;
+  type Stage = typeof stages[number];
+
+  let stage: Stage = "start";
 </script>
 
 <h1>Room {name}</h1>
