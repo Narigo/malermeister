@@ -1,4 +1,6 @@
 <script lang="ts">
+import DrawStage from "./DrawStage.svelte";
+
   export let name: string;
 
   const stages = [
@@ -19,7 +21,7 @@
 {#if stage === "start"}
   <h2>waiting for players to join</h2>
 {:else if stage === "draw"}
-  <h2>waiting for players to draw</h2>
+  <DrawStage />
 {:else if stage === "guess"}
   <h2>waiting for players to guess prompt</h2>
 {:else if stage === "select"}
