@@ -1,5 +1,6 @@
 <script lang="ts">
-import DrawStage from "./DrawStage.svelte";
+  import getPlayerName from "$service/get-player-name";
+  import DrawStage from "./DrawStage.svelte";
 
   export let name: string;
 
@@ -12,14 +13,42 @@ import DrawStage from "./DrawStage.svelte";
     "scores",
   ] as const;
   type Stage = typeof stages[number];
+  type Players = { name: string };
 
   let stage: Stage = "start";
+  let players: Players[] = [];
+
+  playerJoined();
+
+  function playerJoined() {
+    players = [...players, generateNewPlayer()];
+    setTimeout(() => {
+      if (players.length < 5) {
+        playerJoined();
+      }
+    }, Math.floor(Math.random() * 2000));
+  }
+
+  function generateNewPlayer() {
+    return { name: getPlayerName() };
+  }
+
+  function startGame() {
+    stage = "draw";
+  }
 </script>
 
 <h1>Room {name}</h1>
 
+<ul>
+  {#each players as player}
+    <li>{player.name}</li>
+  {/each}
+</ul>
+
 {#if stage === "start"}
   <h2>waiting for players to join</h2>
+  <button on:click={startGame}>Start game with {players.length} players</button>
 {:else if stage === "draw"}
   <DrawStage />
 {:else if stage === "guess"}
