@@ -1,8 +1,5 @@
-<script lang="ts">
-  import getPlayerName from "$service/get-player-name";
-  import DrawStage from "./DrawStage.svelte";
-
-  export let name: string;
+<script lang="ts" context="module">
+  export type DrawResults = {};
 
   const stages = [
     "start",
@@ -13,20 +10,26 @@
     "scores",
   ] as const;
   type Stage = typeof stages[number];
-  type Players = { name: string };
+</script>
+
+<script lang="ts">
+  import getPlayerName from "$service/get-player-name";
+  import players from "$service/player-store";
+  import DrawStage from "./DrawStage.svelte";
+
+  export let name: string;
 
   let stage: Stage = "start";
-  let players: Players[] = [];
 
   playerJoined();
 
   function playerJoined() {
-    players = [...players, generateNewPlayer()];
+    players.update((old) => [...old, generateNewPlayer()]);
     setTimeout(() => {
-      if (players.length < 5) {
+      if ($players.length < 5) {
         playerJoined();
       }
-    }, Math.floor(Math.random() * 2000));
+    }, Math.floor(Math.random() * 2000 + 1000));
   }
 
   function generateNewPlayer() {
@@ -36,21 +39,28 @@
   function startGame() {
     stage = "draw";
   }
+
+  function saveDrawResultsAndContinue(drawResults: DrawResults) {
+    stage = "guess";
+  }
 </script>
 
 <h1>Room {name}</h1>
 
 <ul>
-  {#each players as player}
+  {#each $players as player}
     <li>{player.name}</li>
   {/each}
 </ul>
 
 {#if stage === "start"}
   <h2>waiting for players to join</h2>
-  <button on:click={startGame}>Start game with {players.length} players</button>
+  <button on:click={startGame}
+    >Start game with {$players.length}
+    players</button
+  >
 {:else if stage === "draw"}
-  <DrawStage />
+  <DrawStage done={saveDrawResultsAndContinue} />
 {:else if stage === "guess"}
   <h2>waiting for players to guess prompt</h2>
 {:else if stage === "select"}
