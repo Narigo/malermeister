@@ -1,6 +1,9 @@
 import { writable } from "svelte/store";
-export type Players = { name: string };
+export type Player = { name: string };
 
-const players = writable([]);
+const players = writable<{ players: Player[]; currentPlayer: Player }>({
+  players: [],
+  currentPlayer: null,
+});
 
 export default players;
