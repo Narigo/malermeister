@@ -14,20 +14,31 @@
   let stage: DrawStage = "start";
   let prompt: string = generatePrompt();
 
+  $: if (stage === "waiting") {
+    $playerStore.players.forEach((player) => {
+      setTimeout(() => {
+        updateDrawing({
+          author: player,
+          guesses: [],
+          prompt: generatePrompt(),
+        });
+      }, Math.random() * 200);
+    });
+  }
+
   function nextStage() {
     stage = stages[(stages.findIndex((s) => s === stage) + 1) % stages.length];
   }
 
-  function submitDrawing(drawing: Drawing) {
+  function updateDrawing(drawing: Drawing) {
     const drawingOfPlayer = $drawings.findIndex(
-      (drawing) => drawing.author === $playerStore.currentPlayer
+      (d) => d.author === drawing.author
     );
     $drawings = [
       ...$drawings.slice(0, drawingOfPlayer),
       drawing,
       ...$drawings.slice(drawingOfPlayer + 1),
     ];
-    nextStage();
   }
 </script>
 
@@ -37,12 +48,14 @@
 {:else if stage === "drawing"}
   <p>There will be a canvas to draw '{prompt}'</p>
   <button
-    on:click={() =>
-      submitDrawing({
+    on:click={() => {
+      updateDrawing({
         author: $playerStore.currentPlayer,
         prompt,
         guesses: [],
-      })}>Done drawing!</button
+      });
+      nextStage();
+    }}>Done drawing!</button
   >
 {:else if stage === "waiting"}
   <p>Waiting for everyone to finish their drawing!</p>

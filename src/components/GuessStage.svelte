@@ -15,6 +15,11 @@
   }
 </script>
 
+<ul>
+  {#each $drawings as drawing}
+    <li>{drawing.prompt} by {drawing.author.name}</li>
+  {/each}
+</ul>
 {#each $drawings as drawing}
   {#if stage === "guess"}
     <h2>waiting for players to guess prompt for drawing {drawing.prompt}</h2>
@@ -26,7 +31,8 @@
     <button on:click={nextStage}>Everyone selected their guess!</button>
   {:else if stage === "rate"}
     <h2>
-      waiting for players to rate prompt for drawing {drawing.prompt} by {drawing.author}
+      waiting for players to rate prompt for drawing {drawing.prompt} by {drawing
+        .author.name}
     </h2>
     <button on:click={done}>Everyone rated!</button>
   {/if}

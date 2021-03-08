@@ -18,15 +18,15 @@
   playerJoined();
 
   function playerJoined() {
-    $playerStore = {
-      ...$playerStore,
-      players: [...$playerStore.players, generateNewPlayer()],
-    };
     setTimeout(() => {
+      $playerStore = {
+        ...$playerStore,
+        players: [...$playerStore.players, generateNewPlayer()],
+      };
       if ($playerStore.players.length < 5) {
         playerJoined();
       }
-    }, Math.floor(Math.random() * 2000 + 1000));
+    }, Math.floor(Math.random() * 200 + 100));
   }
 
   function generateNewPlayer() {
