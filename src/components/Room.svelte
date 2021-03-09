@@ -6,7 +6,7 @@
 </script>
 
 <script lang="ts">
-  import getPlayerName from "$service/get-player-name";
+  import generatePlayer from "$service/generate-player";
   import playerStore from "$service/player-store";
   import DrawStage from "./DrawStage.svelte";
   import GuessStage from "./GuessStage.svelte";
@@ -21,7 +21,7 @@
     setTimeout(() => {
       $playerStore = {
         ...$playerStore,
-        players: [...$playerStore.players, generateNewPlayer()],
+        players: [...$playerStore.players, generatePlayer()],
       };
       if ($playerStore.players.length < 5) {
         playerJoined();
@@ -29,21 +29,19 @@
     }, Math.floor(Math.random() * 200 + 100));
   }
 
-  function generateNewPlayer() {
-    return { name: getPlayerName() };
-  }
-
   function startGame() {
     stage = "draw";
   }
 
   function nextStage() {
+    console.log("current stage =", stage);
     stage = stages[(stages.findIndex((s) => s === stage) + 1) % stages.length];
+    console.log("next stage =", stage);
   }
 </script>
 
 <h1>Room {name}</h1>
-
+<p>Welcome, {$playerStore.currentPlayer.name}</p>
 <ul>
   {#each $playerStore.players as player}
     <li>{player.name}</li>

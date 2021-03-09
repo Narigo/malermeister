@@ -17,7 +17,7 @@
   $: if (stage === "waiting") {
     $playerStore.players.forEach((player) => {
       setTimeout(() => {
-        updateDrawing({
+        addDrawing({
           author: player,
           guesses: [],
           prompt: generatePrompt(),
@@ -30,33 +30,27 @@
     stage = stages[(stages.findIndex((s) => s === stage) + 1) % stages.length];
   }
 
-  function updateDrawing(drawing: Drawing) {
+  function addDrawing(drawing: Drawing) {
     const drawingOfPlayer = $drawings.findIndex(
       (d) => d.author === drawing.author
     );
-    $drawings = [
-      ...$drawings.slice(0, drawingOfPlayer),
-      drawing,
-      ...$drawings.slice(drawingOfPlayer + 1),
-    ];
+    console.log("addDrawing(", drawing, ")", drawingOfPlayer, $drawings.length);
+    $drawings = [...$drawings, drawing];
   }
 </script>
+
+<ul>
+  {#each $drawings as drawing}
+    <li>{drawing.prompt} by {drawing.author.name}</li>
+  {/each}
+</ul>
 
 {#if stage === "start"}
   <p>Prepare yourself to draw!</p>
   <button on:click={nextStage}>Continue</button>
 {:else if stage === "drawing"}
   <p>There will be a canvas to draw '{prompt}'</p>
-  <button
-    on:click={() => {
-      updateDrawing({
-        author: $playerStore.currentPlayer,
-        prompt,
-        guesses: [],
-      });
-      nextStage();
-    }}>Done drawing!</button
-  >
+  <button on:click={nextStage}>Done drawing!</button>
 {:else if stage === "waiting"}
   <p>Waiting for everyone to finish their drawing!</p>
   <button on:click={nextStage}>Done waiting!</button>
