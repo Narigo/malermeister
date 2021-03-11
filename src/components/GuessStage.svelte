@@ -15,10 +15,7 @@
 
   function addGuesses(drawing: Drawing) {
     return () => {
-      const index = $drawings.findIndex(
-        (d) =>
-          d.prompt === drawing.prompt && d.author.name === drawing.author.name
-      );
+      const index = $drawings.findIndex((d) => d === drawing);
       $drawings = [
         ...$drawings.slice(0, index),
         {
