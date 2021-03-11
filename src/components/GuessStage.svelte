@@ -15,7 +15,10 @@
 
   function addGuesses(drawing: Drawing) {
     return () => {
-      const index = $drawings.findIndex((d) => d === drawing);
+      const index = $drawings.findIndex(
+        (d) =>
+          d.prompt === drawing.prompt && d.author.name === drawing.author.name
+      );
       $drawings = [
         ...$drawings.slice(0, index),
         {
@@ -25,7 +28,7 @@
             prompt: generatePrompt(),
           })),
         },
-        ...$drawings.slice(index),
+        ...$drawings.slice(index + 1),
       ];
       stage = "select";
     };
@@ -52,8 +55,8 @@
     <li>{drawing.prompt} by {drawing.author.name}</li>
   {/each}
 </ul>
-{#if stage === "guess"}
-  {#each $drawings as drawing}
+{#each $drawings as drawing}
+  {#if stage === "guess"}
     <h2>
       waiting for players to guess prompts for drawing {drawing.prompt} by {drawing
         .author.name}
@@ -61,9 +64,7 @@
     <button on:click={addGuesses(drawing)}
       >Add guesses for {drawing.prompt}</button
     >
-  {/each}
-{:else if stage === "select"}
-  {#each $drawings as drawing}
+  {:else if stage === "select"}
     <h2>
       waiting for players to select prompt for drawing {drawing.prompt} by {drawing
         .author.name}
@@ -71,13 +72,11 @@
     <button on:click={selectPrompt(drawing)}
       >Everyone selected their guess!</button
     >
-  {/each}
-{:else if stage === "rate"}
-  {#each $drawings as drawing}
+  {:else if stage === "rate"}
     <h2>
       waiting for players to rate prompt for drawing {drawing.prompt} by {drawing
         .author.name}
     </h2>
     <button on:click={ratePrompts(drawing)}>Everybody rated</button>
-  {/each}
-{/if}
+  {/if}
+{/each}
