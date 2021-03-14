@@ -21,6 +21,7 @@
           author: player,
           guesses: [],
           prompt: generatePrompt(),
+          selected: [],
         });
       }, Math.random() * 200);
     });
