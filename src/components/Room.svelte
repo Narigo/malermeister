@@ -10,6 +10,7 @@
   import playerStore from "$service/player-store";
   import DrawStage from "./DrawStage.svelte";
   import GuessStage from "./GuessStage.svelte";
+  import ScoreStage from "./ScoreStage.svelte";
 
   export let name: string;
 
@@ -59,5 +60,5 @@
 {:else if stage === "guess"}
   <GuessStage done={nextStage} />
 {:else if stage === "scores"}
-  <h2>showing scores to players</h2>
+  <ScoreStage />
 {/if}
