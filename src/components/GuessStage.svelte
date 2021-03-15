@@ -22,10 +22,17 @@
       ...$drawings.slice(0, index),
       {
         ...drawing,
-        guesses: $playerStore.players.map((p) => ({
-          player: p,
-          prompt: generatePrompt(),
-        })),
+        guesses: $playerStore.players.map((p) =>
+          drawing.author === p
+            ? {
+                player: p,
+                prompt: drawing.prompt,
+              }
+            : {
+                player: p,
+                prompt: generatePrompt(),
+              }
+        ),
       },
       ...$drawings.slice(index + 1),
     ];
@@ -39,23 +46,34 @@
       const selectedIndex = drawing.selected.findIndex(
         (g) => g.player === player
       );
+      const nextSelected =
+        selectedIndex !== -1
+          ? [
+              ...drawing.selected.slice(0, selectedIndex),
+              { prompt, player },
+              ...drawing.selected.slice(selectedIndex + 1),
+            ]
+          : [...drawing.selected, { prompt, player }];
 
       $drawings = [
         ...$drawings.slice(0, index),
         {
           ...drawing,
-          selected: [
-            ...drawing.selected.slice(0, selectedIndex),
-            { prompt, player },
-            ...drawing.selected.slice(selectedIndex + 1),
-          ],
+          selected: nextSelected,
         },
         ...$drawings.slice(index + 1),
       ];
 
       drawing = $drawings[index];
 
-      const allSelected = $playerStore.players.length === drawing.selected.length;
+      const allSelected =
+        $playerStore.players.length === drawing.selected.length;
+      console.log({
+        allSelected,
+        selectedIndex,
+        selected: drawing.selected,
+        players: $playerStore.players,
+      });
 
       if (allSelected) {
         stage = "rate";
@@ -99,6 +117,11 @@
           <button on:click={selectPrompt(guess.prompt, player)}
             >{guess.prompt}</button
           >
+          {#if drawing.selected.find((s) => s.player === player)?.prompt === guess.prompt}
+            selected!
+          {:else}
+            not selected!
+          {/if}
         </li>
       {/each}
     </ul>

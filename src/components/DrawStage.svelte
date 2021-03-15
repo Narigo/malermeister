@@ -17,11 +17,12 @@
   $: if (stage === "waiting") {
     $playerStore.players.forEach((player) => {
       setTimeout(() => {
+        const prompt = generatePrompt();
         addDrawing({
           author: player,
           guesses: [],
-          prompt: generatePrompt(),
-          selected: [],
+          prompt,
+          selected: [{ player, prompt }],
         });
       }, Math.random() * 200);
     });
