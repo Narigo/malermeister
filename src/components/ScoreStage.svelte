@@ -1,8 +1,3 @@
-<script lang="ts" context="module">
-  const stages = ["start"] as const;
-  type DrawStage = typeof stages[number];
-</script>
-
 <script lang="ts">
   import type { Player } from "$service/player-store";
   import drawings from "$service/drawing-store";
