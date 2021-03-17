@@ -3,6 +3,13 @@
   import drawings from "$service/drawing-store";
   import playerStore from "$service/player-store";
 
+  const players = $playerStore.players
+    .map((p) => ({
+      ...p,
+      score: scoresForPlayer(p),
+    }))
+    .sort((a, b) => a.score - b.score);
+
   function scoresForPlayer(player: Player): number {
     return $drawings.reduce((sum, drawing) => {
       const selection = drawing.selected.find((s) => s.player === player);
@@ -17,7 +24,7 @@
 </script>
 
 <ul>
-  {#each $playerStore.players as player}
-    <li>{player.name}: {scoresForPlayer(player)}</li>
+  {#each players as player}
+    <li>{player.name}: {player.score}</li>
   {/each}
 </ul>
