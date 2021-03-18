@@ -8,7 +8,7 @@
       ...p,
       score: scoresForPlayer(p),
     }))
-    .sort((a, b) => a.score - b.score);
+    .sort((a, b) => b.score - a.score);
 
   function scoresForPlayer(player: Player): number {
     return $drawings.reduce((sum, drawing) => {
