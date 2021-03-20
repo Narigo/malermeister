@@ -8,6 +8,7 @@
   import drawings from "$service/drawing-store";
   import generatePrompt from "$service/generate-prompt";
   import playerStore from "$service/player-store";
+  import DrawCanvas from "./DrawCanvas.svelte";
 
   export let done: () => void;
 
@@ -51,7 +52,7 @@
   <p>Prepare yourself to draw!</p>
   <button on:click={nextStage}>Continue</button>
 {:else if stage === "drawing"}
-  <p>There will be a canvas to draw '{prompt}'</p>
+  <DrawCanvas {prompt} />
   <button on:click={nextStage}>Done drawing!</button>
 {:else if stage === "waiting"}
   <p>Waiting for everyone to finish their drawing!</p>
