@@ -29,25 +29,38 @@
 
   function onPointerDown(event: PointerEvent) {
     isDrawing = true;
-    origin = [event.clientX, event.clientY];
+    const x =
+      ((event.clientX - canvasRef.offsetLeft) / canvasRef.clientWidth) *
+      canvasRef.width;
+    const y =
+      ((event.clientY - canvasRef.offsetTop) / canvasRef.clientHeight) *
+      canvasRef.height;
+    origin = [x, y];
   }
+
   function onPointerMove(event: PointerEvent) {
     if (isDrawing) {
+      const x =
+        ((event.clientX - canvasRef.offsetLeft) / canvasRef.clientWidth) *
+        canvasRef.width;
+      const y =
+        ((event.clientY - canvasRef.offsetTop) / canvasRef.clientHeight) *
+        canvasRef.height;
       ctx.beginPath();
       ctx.moveTo(origin[0], origin[1]);
-      ctx.lineTo(event.clientX, event.clientY);
+      ctx.lineTo(x, y);
       ctx.stroke();
-      origin = [event.clientX, event.clientY];
+      origin = [x, y];
     }
   }
+
   function onPointerUp(event: PointerEvent) {
-    console.log("pointerup");
     isDrawing = false;
   }
 </script>
 
 <p>There will be a canvas to draw '{prompt}'</p>
-<canvas bind:this={canvasRef} width="200" height="200" />
+<canvas bind:this={canvasRef} width="500" height="500" />
 
 <style>
   p {
