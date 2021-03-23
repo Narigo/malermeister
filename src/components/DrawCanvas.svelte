@@ -12,6 +12,7 @@
     canvasRef.addEventListener("pointerdown", onPointerDown);
     canvasRef.addEventListener("pointermove", onPointerMove);
     canvasRef.addEventListener("pointerup", onPointerUp);
+    canvasRef.addEventListener("pointerenter", onPointerEnter);
     ctx = canvasRef.getContext("2d");
     ctx.strokeStyle = "rgb(0, 0, 0)";
     ctx.lineWidth = 1;
@@ -25,7 +26,19 @@
     canvasRef.removeEventListener("pointerdown", onPointerDown);
     canvasRef.removeEventListener("pointermove", onPointerMove);
     canvasRef.removeEventListener("pointerup", onPointerUp);
+    canvasRef.removeEventListener("pointerenter", onPointerEnter);
   });
+
+  function onPointerEnter(event: PointerEvent) {
+    isDrawing = event.pressure !== 0;
+    const x =
+      ((event.clientX - canvasRef.offsetLeft) / canvasRef.clientWidth) *
+      canvasRef.width;
+    const y =
+      ((event.clientY - canvasRef.offsetTop) / canvasRef.clientHeight) *
+      canvasRef.height;
+    origin = [x, y];
+  }
 
   function onPointerDown(event: PointerEvent) {
     isDrawing = true;
