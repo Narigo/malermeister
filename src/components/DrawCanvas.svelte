@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
 
-  export let prompt;
+  export let prompt: string;
 
   let canvasRef: HTMLCanvasElement;
   let ctx: CanvasRenderingContext2D;
@@ -13,13 +13,12 @@
     canvasRef.addEventListener("pointermove", onPointerMove);
     canvasRef.addEventListener("pointerup", onPointerUp);
     canvasRef.addEventListener("pointerenter", onPointerEnter);
+    canvasRef.width = canvasRef.scrollWidth;
+    canvasRef.height = canvasRef.scrollHeight;
     ctx = canvasRef.getContext("2d");
     ctx.strokeStyle = "rgb(0, 0, 0)";
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(10, 10);
-    ctx.lineTo(50, 50);
-    ctx.stroke();
+    ctx.lineWidth = 4;
+    ctx.lineCap = "round";
   });
 
   onDestroy(() => {
@@ -73,7 +72,7 @@
 </script>
 
 <p>There will be a canvas to draw '{prompt}'</p>
-<canvas bind:this={canvasRef} width="500" height="500" />
+<canvas bind:this={canvasRef} />
 
 <style>
   p {
@@ -85,6 +84,7 @@
     display: block;
     height: 50%;
     margin: 25px auto;
+    min-height: 75vh;
     width: 50%;
   }
 </style>
