@@ -71,14 +71,10 @@
   }
 </script>
 
-<p>There will be a canvas to draw '{prompt}'</p>
+<h2>Please draw '{prompt}'</h2>
 <canvas bind:this={canvasRef} />
 
 <style>
-  p {
-    color: green;
-  }
-
   canvas {
     box-shadow: 0 0 20px #666;
     display: block;
