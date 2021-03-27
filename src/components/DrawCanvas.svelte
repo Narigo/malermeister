@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
+  import ColorPicker from "./ColorPicker.svelte";
 
   export let prompt: string;
 
@@ -69,10 +70,15 @@
   function onPointerUp(event: PointerEvent) {
     isDrawing = false;
   }
+
+  function changeColor(event: CustomEvent<string>) {
+    ctx.strokeStyle = event.detail;
+  }
 </script>
 
 <h2>Please draw '{prompt}'</h2>
 <canvas bind:this={canvasRef} />
+<ColorPicker on:pick={changeColor} />
 
 <style>
   canvas {
