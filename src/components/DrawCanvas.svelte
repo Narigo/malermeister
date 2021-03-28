@@ -29,36 +29,26 @@
     canvasRef.removeEventListener("pointerenter", onPointerEnter);
   });
 
+  function getCoords(event: PointerEvent): [number, number] {
+    const { left, top } = canvasRef.getBoundingClientRect();
+    const x = event.clientX - left;
+    const y = event.clientY - top;
+    return [x, y];
+  }
+
   function onPointerEnter(event: PointerEvent) {
     isDrawing = event.pressure !== 0;
-    const x =
-      ((event.clientX - canvasRef.offsetLeft) / canvasRef.clientWidth) *
-      canvasRef.width;
-    const y =
-      ((event.clientY - canvasRef.offsetTop) / canvasRef.clientHeight) *
-      canvasRef.height;
-    origin = [x, y];
+    origin = getCoords(event);
   }
 
   function onPointerDown(event: PointerEvent) {
     isDrawing = true;
-    const x =
-      ((event.clientX - canvasRef.offsetLeft) / canvasRef.clientWidth) *
-      canvasRef.width;
-    const y =
-      ((event.clientY - canvasRef.offsetTop) / canvasRef.clientHeight) *
-      canvasRef.height;
-    origin = [x, y];
+    origin = getCoords(event);
   }
 
   function onPointerMove(event: PointerEvent) {
     if (isDrawing) {
-      const x =
-        ((event.clientX - canvasRef.offsetLeft) / canvasRef.clientWidth) *
-        canvasRef.width;
-      const y =
-        ((event.clientY - canvasRef.offsetTop) / canvasRef.clientHeight) *
-        canvasRef.height;
+      const [x, y] = getCoords(event);
       ctx.beginPath();
       ctx.moveTo(origin[0], origin[1]);
       ctx.lineTo(x, y);
