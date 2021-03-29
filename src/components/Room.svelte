@@ -28,18 +28,27 @@
 </script>
 
 <h1>Room {name}</h1>
-<PlayerList />
+<div>
+  <section>
+    {#if stage === "start"}
+      <h2>waiting for players to join</h2>
+      <button on:click={startGame}
+        >Start game with {$playerStore.players.length}
+        players</button
+      >
+    {:else if stage === "draw"}
+      <DrawStage done={nextStage} />
+    {:else if stage === "guess"}
+      <GuessStage done={nextStage} />
+    {:else if stage === "scores"}
+      <ScoreStage />
+    {/if}
+  </section>
+  <section><PlayerList /></section>
+</div>
 
-{#if stage === "start"}
-  <h2>waiting for players to join</h2>
-  <button on:click={startGame}
-    >Start game with {$playerStore.players.length}
-    players</button
-  >
-{:else if stage === "draw"}
-  <DrawStage done={nextStage} />
-{:else if stage === "guess"}
-  <GuessStage done={nextStage} />
-{:else if stage === "scores"}
-  <ScoreStage />
-{/if}
+<style>
+  div {
+    display: flex;
+  }
+</style>
