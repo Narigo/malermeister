@@ -44,11 +44,20 @@
       <ScoreStage />
     {/if}
   </section>
-  <section><PlayerList /></section>
+  <section class="players"><PlayerList /></section>
 </div>
 
 <style>
   div {
     display: flex;
+    width: 100%;
+  }
+
+  section {
+    flex-grow: 1;
+  }
+
+  section.players {
+    max-width: 250px;
   }
 </style>
