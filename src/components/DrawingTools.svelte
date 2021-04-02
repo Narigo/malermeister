@@ -3,7 +3,8 @@
 
   const dispatch = createEventDispatcher();
 
-  const pick = (color: string) => () => dispatch("pick", color);
+  const pick = (color: string) => () =>
+    dispatch("change", { strokeStyle: color });
 </script>
 
 <div>

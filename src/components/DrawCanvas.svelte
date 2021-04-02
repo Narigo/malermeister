@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
-  import ColorPicker from "./ColorPicker.svelte";
+  import DrawingTools from "./DrawingTools.svelte";
 
   export let prompt: string;
 
@@ -61,14 +61,15 @@
     isDrawing = false;
   }
 
-  function changeColor(event: CustomEvent<string>) {
-    ctx.strokeStyle = event.detail;
+  function changeOptions(event: CustomEvent<{ strokeStyle: string }>) {
+    const { strokeStyle } = event.detail;
+    ctx.strokeStyle = strokeStyle;
   }
 </script>
 
 <h2>Please draw '{prompt}'</h2>
 <canvas bind:this={canvasRef} />
-<ColorPicker on:pick={changeColor} />
+<DrawingTools on:change={changeOptions} />
 
 <style>
   canvas {
