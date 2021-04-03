@@ -61,9 +61,12 @@
     isDrawing = false;
   }
 
-  function changeOptions(event: CustomEvent<{ strokeStyle: string }>) {
-    const { strokeStyle } = event.detail;
-    ctx.strokeStyle = strokeStyle;
+  function changeOptions(
+    event: CustomEvent<{ lineWidth: number; strokeStyle: string }>
+  ) {
+    const { lineWidth, strokeStyle } = event.detail;
+    ctx.strokeStyle = strokeStyle || ctx.strokeStyle;
+    ctx.lineWidth = lineWidth || ctx.lineWidth;
   }
 </script>
 

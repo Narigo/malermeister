@@ -5,6 +5,8 @@
 
   const pick = (color: string) => () =>
     dispatch("change", { strokeStyle: color });
+  const pickThickness = (thickness: number) => () =>
+    dispatch("change", { lineWidth: thickness });
 </script>
 
 <div>
@@ -13,6 +15,9 @@
   <span class="green" on:click={pick("rgb(0, 255, 0)")} />
   <span class="blue" on:click={pick("rgb(0, 0, 255)")} />
   <span class="white" on:click={pick("rgb(255, 255, 255)")} />
+  <span on:click={pickThickness(1)}>thin</span>
+  <span on:click={pickThickness(2)}>normal</span>
+  <span on:click={pickThickness(5)}>bold</span>
 </div>
 
 <style>
