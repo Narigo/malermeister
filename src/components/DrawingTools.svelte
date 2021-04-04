@@ -9,26 +9,41 @@
     dispatch("change", { lineWidth: thickness });
 </script>
 
-<div>
-  <span class="black" on:click={pick("rgb(0, 0, 0)")} />
-  <span class="red" on:click={pick("rgb(255, 0, 0)")} />
-  <span class="green" on:click={pick("rgb(0, 255, 0)")} />
-  <span class="blue" on:click={pick("rgb(0, 0, 255)")} />
-  <span class="white" on:click={pick("rgb(255, 255, 255)")} />
-  <span on:click={pickThickness(1)}>thin</span>
-  <span on:click={pickThickness(2)}>normal</span>
-  <span on:click={pickThickness(5)}>bold</span>
+<div class="picker">
+  <div class="colors">
+    <span class="black" on:click={pick("rgb(0, 0, 0)")} />
+    <span class="red" on:click={pick("rgb(255, 0, 0)")} />
+    <span class="green" on:click={pick("rgb(0, 255, 0)")} />
+    <span class="blue" on:click={pick("rgb(0, 0, 255)")} />
+    <span class="white" on:click={pick("rgb(255, 255, 255)")} />
+  </div>
+  <div class="thickness">
+    <span on:click={pickThickness(1)}>thin</span>
+    <span on:click={pickThickness(2)}>normal</span>
+    <span on:click={pickThickness(5)}>bold</span>
+  </div>
 </div>
 
 <style>
-  div {
+  div.picker {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    box-shadow: 0 0 25px #000;
+    box-shadow: 0 0 15px #000;
     justify-content: space-between;
+    gap: 25px;
     margin: 25px auto;
     padding: 25px 25px;
     width: 225px;
+  }
+
+  div.colors,
+  div.thickness {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
   }
 
   span {
