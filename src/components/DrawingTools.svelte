@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import Pencil from "./Pencil.svelte";
 
   const dispatch = createEventDispatcher();
 
@@ -18,9 +19,27 @@
     <span class="white" on:click={pick("rgb(255, 255, 255)")} />
   </div>
   <div class="thickness">
-    <span on:click={pickThickness(1)}>thin</span>
-    <span on:click={pickThickness(2)}>normal</span>
-    <span on:click={pickThickness(5)}>bold</span>
+    <Pencil
+      on:click={pickThickness(1)}
+      height={25}
+      width={25}
+      strokeWidth={1}
+      color="#000000"
+    />
+    <Pencil
+      on:click={pickThickness(2)}
+      height={25}
+      width={25}
+      strokeWidth={2}
+      color="#000000"
+    />
+    <Pencil
+      on:click={pickThickness(5)}
+      height={25}
+      width={25}
+      strokeWidth={5}
+      color="#000000"
+    />
   </div>
 </div>
 
