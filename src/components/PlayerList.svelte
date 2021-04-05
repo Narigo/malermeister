@@ -6,18 +6,18 @@
 
   function playerJoined() {
     setTimeout(() => {
-      $playerStore = {
-        ...$playerStore,
-        players: [...$playerStore.players, generatePlayer()],
-      };
       if ($playerStore.players.length < 5) {
+        $playerStore = {
+          ...$playerStore,
+          players: [...$playerStore.players, generatePlayer()],
+        };
         playerJoined();
       }
     }, Math.floor(Math.random() * 200 + 100));
   }
 </script>
 
-<p>Welcome, {$playerStore.currentPlayer.name}</p>
+<h2>Players</h2>
 <ul>
   {#each $playerStore.players as player}
     <li>{player.name}</li>
