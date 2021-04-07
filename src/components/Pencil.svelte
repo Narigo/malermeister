@@ -9,7 +9,7 @@
   <path
     d="M 25 75 L 75 50"
     stroke-width={strokeWidth}
-    stroke-linejoin="round"
+    stroke-linecap="round"
     fill="none"
     stroke={color}
     vector-effect="non-scaling-stroke"
