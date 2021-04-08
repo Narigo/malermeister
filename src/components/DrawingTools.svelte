@@ -3,9 +3,12 @@
   import Pencil from "./Pencil.svelte";
 
   const dispatch = createEventDispatcher();
+  let color = "#000000";
 
-  const pick = (color: string) => () =>
-    dispatch("change", { strokeStyle: color });
+  const pick = (strokeStyle: string) => () => {
+    color = strokeStyle;
+    dispatch("change", { strokeStyle });
+  };
   const pickThickness = (thickness: number) => () =>
     dispatch("change", { lineWidth: thickness });
 </script>
@@ -24,21 +27,21 @@
       height={25}
       width={25}
       strokeWidth={1}
-      color="#000000"
+      {color}
     />
     <Pencil
       on:click={pickThickness(2)}
       height={25}
       width={25}
       strokeWidth={2}
-      color="#000000"
+      {color}
     />
     <Pencil
       on:click={pickThickness(5)}
       height={25}
       width={25}
       strokeWidth={5}
-      color="#000000"
+      {color}
     />
   </div>
 </div>
