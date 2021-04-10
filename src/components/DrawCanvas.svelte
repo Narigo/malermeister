@@ -3,6 +3,7 @@
   import DrawingTools from "./DrawingTools.svelte";
 
   export let prompt: string;
+  export let initialLineWidth: number = 2;
 
   let canvasRef: HTMLCanvasElement;
   let ctx: CanvasRenderingContext2D;
@@ -18,7 +19,7 @@
     canvasRef.height = canvasRef.scrollHeight;
     ctx = canvasRef.getContext("2d");
     ctx.strokeStyle = "rgb(0, 0, 0)";
-    ctx.lineWidth = 4;
+    ctx.lineWidth = initialLineWidth;
     ctx.lineCap = "round";
   });
 
