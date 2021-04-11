@@ -52,7 +52,7 @@
   <p>Prepare yourself to draw!</p>
   <button on:click={nextStage}>Continue</button>
 {:else if stage === "drawing"}
-  <DrawCanvas {prompt} />
+  <DrawCanvas {prompt} initialLineWidth={5} />
   <button on:click={nextStage}>Done drawing!</button>
 {:else if stage === "waiting"}
   <p>Waiting for everyone to finish their drawing!</p>
