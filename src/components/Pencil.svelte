@@ -1,11 +1,12 @@
 <script lang="ts">
+  export let active: boolean = false;
   export let color: string;
   export let height: number;
   export let strokeWidth: number;
   export let width: number;
 </script>
 
-<svg {width} {height} viewBox="0 0 100 100" on:click>
+<svg class={active ? "active" : ""} {width} {height} viewBox="0 0 100 100">
   <path
     d="M 25 75 L 60 60"
     stroke-width={strokeWidth}
@@ -31,3 +32,9 @@
     vector-effect="non-scaling-stroke"
   />
 </svg>
+
+<style>
+  .active {
+    border: 1px solid #f00;
+  }
+</style>

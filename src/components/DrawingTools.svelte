@@ -2,6 +2,8 @@
   import { createEventDispatcher } from "svelte";
   import Pencil from "./Pencil.svelte";
 
+  export let lineWidth: number;
+
   const dispatch = createEventDispatcher();
   let color = "#000000";
 
@@ -27,6 +29,7 @@
       height={25}
       width={25}
       strokeWidth={1}
+      active={lineWidth === 1}
       {color}
     />
     <Pencil
@@ -34,6 +37,7 @@
       height={25}
       width={25}
       strokeWidth={2}
+      active={lineWidth === 2}
       {color}
     />
     <Pencil
@@ -41,6 +45,7 @@
       height={25}
       width={25}
       strokeWidth={5}
+      active={lineWidth === 5}
       {color}
     />
   </div>
