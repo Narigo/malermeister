@@ -11,8 +11,9 @@
     color = strokeStyle;
     dispatch("change", { strokeStyle });
   };
-  const pickThickness = (thickness: number) => () =>
+  const pickThickness = (thickness: number) => () => {
     dispatch("change", { lineWidth: thickness });
+  };
 </script>
 
 <div class="picker">
