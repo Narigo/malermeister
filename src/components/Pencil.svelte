@@ -6,7 +6,13 @@
   export let width: number;
 </script>
 
-<svg class={active ? "active" : ""} {width} {height} on:click viewBox="0 0 100 100">
+<svg
+  class={active ? "active" : ""}
+  {width}
+  {height}
+  on:click
+  viewBox="0 0 100 100"
+>
   <path
     d="M 25 75 L 60 60"
     stroke-width={strokeWidth}
@@ -35,6 +41,6 @@
 
 <style>
   .active {
-    border: 1px solid #f00;
+    border-bottom: 1px solid #f00;
   }
 </style>
