@@ -1,12 +1,11 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
-  import { writable } from "svelte/store";
   import DrawingTools from "./DrawingTools.svelte";
 
   export let prompt: string;
   export let initialLineWidth: number = 2;
 
-  let currentLineWidth = writable<number>(initialLineWidth);
+  let currentLineWidth = initialLineWidth;
 
   let canvasRef: HTMLCanvasElement;
   let ctx: CanvasRenderingContext2D;
@@ -22,7 +21,7 @@
     canvasRef.height = canvasRef.scrollHeight;
     ctx = canvasRef.getContext("2d");
     ctx.strokeStyle = "rgb(0, 0, 0)";
-    ctx.lineWidth = $currentLineWidth;
+    ctx.lineWidth = currentLineWidth;
     ctx.lineCap = "round";
   });
 
@@ -69,15 +68,15 @@
     event: CustomEvent<{ lineWidth: number; strokeStyle: string }>
   ) {
     const { lineWidth, strokeStyle } = event.detail;
-    $currentLineWidth = lineWidth || ctx.lineWidth;
     ctx.strokeStyle = strokeStyle || ctx.strokeStyle;
     ctx.lineWidth = lineWidth || ctx.lineWidth;
+    currentLineWidth = ctx.lineWidth;
   }
 </script>
 
 <h2>Please draw '{prompt}'</h2>
 <canvas bind:this={canvasRef} />
-<DrawingTools lineWidth={$currentLineWidth} on:change={changeOptions} />
+<DrawingTools bind:lineWidth={currentLineWidth} on:change={changeOptions} />
 
 <style>
   canvas {
