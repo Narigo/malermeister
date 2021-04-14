@@ -22,8 +22,8 @@
     vector-effect="non-scaling-stroke"
   />
   <path
-    d="M 60 60 L 50 30 L 55 0 M 60 60 L 80 35 L 90 0"
-    stroke-width="1"
+    d="M 55 0 L 50 30 L 80 35 L 90 0"
+    stroke-width="2"
     stroke-linecap="round"
     fill="none"
     stroke="#000"
@@ -34,7 +34,7 @@
     stroke-width="1"
     stroke-linecap="round"
     fill={color}
-    stroke="#000"
+    stroke={color}
     vector-effect="non-scaling-stroke"
   />
 </svg>
