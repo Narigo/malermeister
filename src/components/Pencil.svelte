@@ -30,6 +30,15 @@
     vector-effect="non-scaling-stroke"
   />
   <path
+    class="highlight"
+    d="M 55 0 L 50 30 L 80 35 L 90 0"
+    stroke-width="2"
+    stroke-linecap="round"
+    fill="none"
+    stroke="#000"
+    vector-effect="non-scaling-stroke"
+  />
+  <path
     d="M 60 60 L 50 30 L 80 35 L 60 60"
     stroke-width="1"
     stroke-linecap="round"
@@ -42,5 +51,8 @@
 <style>
   .active {
     border-bottom: 1px solid #f00;
+  }
+  .active .highlight {
+    visibility: hidden;
   }
 </style>
