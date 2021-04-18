@@ -18,6 +18,8 @@ npm init svelte@next my-app
 
 ## Developing
 
+With [docker-box](https://github.com/compose-us-research/docker-box): `DOCKER_OPTIONS="-p 3000:3000 -p 3001:3001" dr bash`
+
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
 ```bash

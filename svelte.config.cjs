@@ -18,7 +18,12 @@ module.exports = {
     target: "#svelte",
 
     vite: {
-       ssr: {
+      server: {
+        hmr: {
+          port: 3001,
+        },
+      },
+      ssr: {
         noExternal: Object.keys(pkg.dependencies || {}),
       },
     },
