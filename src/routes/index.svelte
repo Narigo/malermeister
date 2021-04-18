@@ -1,5 +1,5 @@
 <script lang="ts">
-  import getRoomName from "$service/get-room-name";
+  import getRoomName from "../service/get-room-name";
   import { onMount } from "svelte";
 
   let randomRoomName: string;

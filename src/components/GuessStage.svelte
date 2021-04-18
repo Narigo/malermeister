@@ -4,11 +4,11 @@
 </script>
 
 <script lang="ts">
-  import type { Drawing } from "$service/drawing-store";
-  import type { Player } from "$service/player-store";
-  import drawings from "$service/drawing-store";
-  import generatePrompt from "$service/generate-prompt";
-  import playerStore from "$service/player-store";
+  import type { Drawing } from "../service/drawing-store";
+  import type { Player } from "../service/player-store";
+  import drawings from "../service/drawing-store";
+  import generatePrompt from "../service/generate-prompt";
+  import playerStore from "../service/player-store";
 
   export let done: () => void;
 

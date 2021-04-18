@@ -6,7 +6,7 @@
 </script>
 
 <script lang="ts">
-  import Room from "$components/Room.svelte";
+  import Room from "../../components/Room.svelte";
 
   export let slug: string = "";
 </script>

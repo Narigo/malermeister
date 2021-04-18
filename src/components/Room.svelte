@@ -6,7 +6,7 @@
 </script>
 
 <script lang="ts">
-  import playerStore from "$service/player-store";
+  import playerStore from "../service/player-store";
   import DrawStage from "./DrawStage.svelte";
   import GuessStage from "./GuessStage.svelte";
   import PlayerList from "./PlayerList.svelte";

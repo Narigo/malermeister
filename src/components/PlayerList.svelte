@@ -1,6 +1,6 @@
 <script lang="ts">
-  import generatePlayer from "$service/generate-player";
-  import playerStore from "$service/player-store";
+  import generatePlayer from "../service/generate-player";
+  import playerStore from "../service/player-store";
 
   playerJoined();
 

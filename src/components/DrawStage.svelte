@@ -4,10 +4,10 @@
 </script>
 
 <script lang="ts">
-  import type { Drawing } from "$service/drawing-store";
-  import drawings from "$service/drawing-store";
-  import generatePrompt from "$service/generate-prompt";
-  import playerStore from "$service/player-store";
+  import type { Drawing } from "../service/drawing-store";
+  import drawings from "../service/drawing-store";
+  import generatePrompt from "../service/generate-prompt";
+  import playerStore from "../service/player-store";
   import DrawCanvas from "./DrawCanvas.svelte";
 
   export let done: () => void;

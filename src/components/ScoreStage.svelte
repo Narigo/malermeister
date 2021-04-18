@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { Player } from "$service/player-store";
-  import drawings from "$service/drawing-store";
-  import playerStore from "$service/player-store";
+  import type { Player } from "../service/player-store";
+  import drawings from "../service/drawing-store";
+  import playerStore from "../service/player-store";
 
   const players = $playerStore.players
     .map((p) => ({
