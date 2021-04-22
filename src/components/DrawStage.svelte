@@ -14,6 +14,7 @@
 
   let stage: DrawStage = "start";
   let prompt: string = generatePrompt();
+  let getDrawing: () => ImageData;
 
   $: if (stage === "waiting") {
     $playerStore.players.forEach((player) => {
@@ -31,6 +32,12 @@
 
   function nextStage() {
     stage = stages[(stages.findIndex((s) => s === stage) + 1) % stages.length];
+  }
+
+  function saveDrawing() {
+    const imageData = getDrawing();
+    console.log(imageData);
+    nextStage();
   }
 
   function addDrawing(drawing: Drawing) {
@@ -52,8 +59,8 @@
   <p>Prepare yourself to draw!</p>
   <button on:click={nextStage}>Continue</button>
 {:else if stage === "drawing"}
-  <DrawCanvas {prompt} initialLineWidth={5} />
-  <button on:click={nextStage}>Done drawing!</button>
+  <DrawCanvas bind:getDrawing {prompt} initialLineWidth={5} />
+  <button on:click={saveDrawing}>Done drawing!</button>
 {:else if stage === "waiting"}
   <p>Waiting for everyone to finish their drawing!</p>
   <button on:click={nextStage}>Done waiting!</button>

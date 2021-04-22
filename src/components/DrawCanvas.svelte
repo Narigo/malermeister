@@ -5,6 +5,10 @@
   export let prompt: string;
   export let initialLineWidth: number = 2;
 
+  export function getDrawing() {
+    return ctx.getImageData(0, 0, canvasRef.width, canvasRef.height);
+  }
+
   let currentLineWidth = initialLineWidth;
 
   let canvasRef: HTMLCanvasElement;
