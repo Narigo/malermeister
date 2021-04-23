@@ -4,7 +4,7 @@
 </script>
 
 <script lang="ts">
-  import type { Drawing } from "../service/drawing-store";
+  import type { Drawing, DrawingPrompt } from "../service/drawing-store";
   import drawings from "../service/drawing-store";
   import generatePrompt from "../service/generate-prompt";
   import playerStore from "../service/player-store";
@@ -37,10 +37,11 @@
   function saveDrawing() {
     const imageData = getDrawing();
     console.log(imageData);
+
     nextStage();
   }
 
-  function addDrawing(drawing: Drawing) {
+  function addDrawing(drawing: DrawingPrompt) {
     const drawingOfPlayer = $drawings.findIndex(
       (d) => d.author === drawing.author
     );
