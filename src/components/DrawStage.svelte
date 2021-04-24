@@ -16,7 +16,7 @@
   let prompt: string = generatePrompt();
   let getDrawing: () => ImageData;
 
-  $: if (stage === "waiting") {
+  $: if (stage === "start") {
     $playerStore.players.forEach((player) => {
       setTimeout(() => {
         const prompt = generatePrompt();
@@ -31,6 +31,7 @@
   }
 
   function nextStage() {
+    console.log("nextStage", stage, $drawings);
     stage = stages[(stages.findIndex((s) => s === stage) + 1) % stages.length];
   }
 
@@ -63,17 +64,28 @@
     drawing: DrawingPrompt | Drawing
   ): HTMLImageElement {
     const imageData = (drawing as Drawing).drawing;
-    if (!imageData) {
-      console.log("no imageData for", drawing);
-      return new Image();
-    }
+    const image = new Image();
+
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
-    canvas.width = imageData.width;
-    canvas.height = imageData.height;
-    ctx.putImageData(imageData, 0, 0);
+    if (!imageData) {
+      console.log("no imageData for", drawing);
+      canvas.width = 100;
+      canvas.height = 100;
+      ctx.fillStyle = `rgb(${Math.round(Math.random() * 255)},${Math.round(
+        Math.random() * 255
+      )},${Math.round(Math.random() * 255)})`;
+      ctx.fillRect(0, 0, 100, 100);
+      image.width = 100;
+      image.height = 100;
+    } else {
+      canvas.width = imageData.width;
+      canvas.height = imageData.height;
+      ctx.putImageData(imageData, 0, 0);
+      image.width = imageData.width;
+      image.height = imageData.height;
+    }
 
-    var image = new Image(imageData.width, imageData.height);
     image.src = canvas.toDataURL();
     return image;
   }
