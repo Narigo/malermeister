@@ -8,9 +8,9 @@ export type DrawingPrompt = {
   selected: Guess[];
 };
 export type Drawing = DrawingPrompt & {
-  drawing: string;
+  drawing: ImageData;
 };
 
-const drawings = writable<DrawingPrompt[]>([]);
+const drawings = writable<(DrawingPrompt | Drawing)[]>([]);
 
 export default drawings;

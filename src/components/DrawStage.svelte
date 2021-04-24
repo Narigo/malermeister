@@ -36,8 +36,18 @@
 
   function saveDrawing() {
     const imageData = getDrawing();
-    console.log(imageData);
-
+    const drawingIndex = $drawings.findIndex(
+      (d) => d.author === $playerStore.currentPlayer
+    );
+    const existingPrompt = $drawings[drawingIndex];
+    $drawings = [
+      ...$drawings.slice(0, drawingIndex),
+      {
+        ...existingPrompt,
+        drawing: imageData,
+      },
+      ...$drawings.slice(drawingIndex + 1),
+    ];
     nextStage();
   }
 
@@ -47,6 +57,25 @@
     );
     console.log("addDrawing(", drawing, ")", drawingOfPlayer, $drawings.length);
     $drawings = [...$drawings, drawing];
+  }
+
+  function getDrawingAsImage(
+    drawing: DrawingPrompt | Drawing
+  ): HTMLImageElement {
+    const imageData = (drawing as Drawing).drawing;
+    if (!imageData) {
+      console.log("no imageData for", drawing);
+      return new Image();
+    }
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = imageData.width;
+    canvas.height = imageData.height;
+    ctx.putImageData(imageData, 0, 0);
+
+    var image = new Image(imageData.width, imageData.height);
+    image.src = canvas.toDataURL();
+    return image;
   }
 </script>
 
@@ -64,6 +93,9 @@
   <button on:click={saveDrawing}>Done drawing!</button>
 {:else if stage === "waiting"}
   <p>Waiting for everyone to finish their drawing!</p>
+  {#each $drawings as drawing}
+    {@html getDrawingAsImage(drawing).outerHTML}
+  {/each}
   <button on:click={nextStage}>Done waiting!</button>
 {:else}
   <p>Everyone is done drawing! Let's jump into the next phase!</p>
