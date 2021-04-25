@@ -31,7 +31,6 @@
   }
 
   function nextStage() {
-    console.log("nextStage", stage, $drawings);
     stage = stages[(stages.findIndex((s) => s === stage) + 1) % stages.length];
   }
 
@@ -53,10 +52,6 @@
   }
 
   function addDrawing(drawing: DrawingPrompt) {
-    const drawingOfPlayer = $drawings.findIndex(
-      (d) => d.author === drawing.author
-    );
-    console.log("addDrawing(", drawing, ")", drawingOfPlayer, $drawings.length);
     $drawings = [...$drawings, drawing];
   }
 
